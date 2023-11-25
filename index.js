@@ -1,12 +1,13 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const User = require("./userSchema");
+const cors = require('cors');
 require("./connectionToDB");
 require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("lets do the scholarNest Project");
@@ -39,7 +40,7 @@ app.post("/createUser", async (req, res) => {
 app.get("/getuser", async (req, res) => {
   try {
     const { id } = req.query;
-    const user = await User.find({ id: id });
+    const user = await User.find({ _id: id });
     return res.status(200).json({
       data: user,
     });
@@ -54,7 +55,6 @@ app.get("/getuser", async (req, res) => {
 app.post("/updateuser", async (req, res) => {
   try {
     const { id, firstName, lastName, phone } = req.body;
-    console.log(id, firstName, lastName, phone);
     const user = await User.findById(id);
 
     if (!user) {

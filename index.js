@@ -16,24 +16,6 @@ app.get("/", (req, res) => {
 app.post("/createUser", async (req, res) => {
   const { firstName, lastName, email, phone, username } = req.body;
   try {
-
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-
-    if (existingUser) {
-      return res.status(200).json({
-        msg: "User with the same email or username already exists",
-        exists: true,
-      });
-    }
-
-    const existingPhoneUser = await User.findOne({ phone });
-
-    if (existingPhoneUser) {
-      return res.status(200).json({
-        msg: "User with the same phone number already exists",
-        exists: true,
-      });
-    }
     const user = new User({
       firstName,
       lastName,

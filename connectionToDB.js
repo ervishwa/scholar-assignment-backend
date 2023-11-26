@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
+require("dotenv").config();
 
 mongoose
-  .connect("mongodb+srv://Vishwa3121:Mongodb123@cluster0.oenylg3.mongodb.net/users?retryWrites=true&w=majority")
+  .connect(process.env.CONNECTION_URL)
   .then(() => console.log("Connected to the database"))
   .catch((err) => console.log(err));
